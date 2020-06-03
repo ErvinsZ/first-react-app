@@ -5,6 +5,7 @@ import'bootstrap/dist/css/bootstrap.min.css';
 import Navbar from './components/Navbar';
 import Jumbotron from './components/Jumbotron';
 import Footer from './components/Footer';
+import LatestRelease from './components/LatestRelease';
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
     <div className="App">
       <Navbar title="Strivesturant" />
       <Jumbotron/>
+      
       <Footer/>
     </div>
   );

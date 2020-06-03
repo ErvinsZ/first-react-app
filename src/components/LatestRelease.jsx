@@ -1,24 +1,25 @@
 import React, { Component } from "react";
 
-window.onload = () => {
-    loadTracks()
-}
 
 
-let loadedBooks = []
+function latestRelease() {
+    return(
 
-const loadTracks = books => {
+
+
+
+
+
+window.onload = function loadTracks (books) {
     fetch("https://striveschool.herokuapp.com/books?offset=0&limit=50")
         .then(response => response.json())
         .then(json => {
             const cardContainer = document.querySelector("#cardContainer")
             const book = document.querySelector("#Books")
-
-            loadedBooks = json;
-            calculateDuration(loadedBooks)
-
             
-            loadedBooks.forEach(currentBook => {
+            
+            
+            json.forEach(currentBook => {
                 cardContainer.innerHTML += `
              <div class="col-sm-3 col-md-2 card">
                  <img src="${currentBook.img}" style ="height:250px;">   
@@ -51,5 +52,10 @@ modalCard.appendChild(modalImage);
         });
         
 }
-  
-  export default loadTracks;
+
+
+
+    
+    )}
+
+  export default latestRelease;

@@ -8,6 +8,8 @@ import {
   Card,
   Dropdown,
   DropdownButton,
+  InputGroup,
+  FormControl,
 } from "react-bootstrap";
 
 let bookCategories = ["fantasy", "horror", "history", "romance", "scifi"];
@@ -20,10 +22,14 @@ let books = {
 };
 
 class Home extends React.Component {
-  state = {
-    books: books.fantasy.slice(0, 12),
-    categorySelected: "fantasy",
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      books: books.fantasy.slice(0, 12),
+      categorySelected: this.props.jumboTitle,
+    };
+  }
 
   handleDropdownChange = (category) => {
     this.setState({
@@ -32,8 +38,20 @@ class Home extends React.Component {
     });
   };
 
+  handleSearchQuery = (searchQuery) => {
+    let category = this.state.categorySelected;
+
+    if (searchQuery) {
+      let filteredBooks = books[category].filter((book) =>
+        book.title.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      this.setState({ books: filteredBooks.slice(0, 12) });
+    } else {
+      this.setState({ books: books[category].slice(0, 12) });
+    }
+  };
+
   render() {
-    console.log("BOOKS", books);
     return (
       <div>
         <Jumbotron>
@@ -47,38 +65,51 @@ class Home extends React.Component {
           </p>
         </Jumbotron>
         <Container>
-          <DropdownButton
-            id="dropdown-basic-button"
-            className="mb-3"
-            title={this.state.categorySelected}
-          >
-            {bookCategories.map((category, index) => {
-              return (
-                <Dropdown.Item
-                  href="#/action-1"
-                  key={`dropdown-category-${index}`}
-                  onClick={() => this.handleDropdownChange(category)}
-                >
-                  {category}
-                </Dropdown.Item>
-              );
-            })}
-          </DropdownButton>
+          <InputGroup>
+            <DropdownButton
+              as={InputGroup.Prepend}
+              id="dropdown-basic-button"
+              className="mb-3"
+              title={this.state.categorySelected}
+            >
+              {bookCategories.map((category, index) => {
+                return (
+                  <Dropdown.Item
+                    href="#/action-1"
+                    key={`dropdown-category-${index}`}
+                    onClick={() => this.handleDropdownChange(category)}
+                  >
+                    {category}
+                  </Dropdown.Item>
+                );
+              })}
+            </DropdownButton>
+            <FormControl
+              placeholder="Search Books by Title"
+              aria-label="Search"
+              aria-describedby="basic-addon1"
+              onChange={(e) => this.handleSearchQuery(e.target.value)}
+            />
+          </InputGroup>
           <Row>
-            {this.state.books.map((book) => {
-              return (
-                <Col xs={6} key={book.asin}>
-                  <Card style={{ width: "18rem" }}>
-                    <Card.Img variant="top" src={book.img} />
-                    <Card.Body>
-                      <Card.Title>{book.title}</Card.Title>
-                      <Card.Text>€{book.price}</Card.Text>
-                      <Button variant="primary">Go somewhere</Button>
-                    </Card.Body>
-                  </Card>
-                </Col>
-              );
-            })}
+            {this.state.books ? (
+              this.state.books.map((book) => {
+                return (
+                  <Col xs={6} key={book.asin}>
+                    <Card style={{ width: "18rem" }}>
+                      <Card.Img variant="top" src={book.img} />
+                      <Card.Body>
+                        <Card.Title>{book.title}</Card.Title>
+                        <Card.Text>€{book.price}</Card.Text>
+                        <Button variant="primary">Go somewhere</Button>
+                      </Card.Body>
+                    </Card>
+                  </Col>
+                );
+              })
+            ) : (
+              <div> nothing here </div>
+            )}
           </Row>
         </Container>
       </div>

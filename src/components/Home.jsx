@@ -11,6 +11,7 @@ import {
   InputGroup,
   FormControl,
 } from "react-bootstrap";
+import BookComments from "./MyBadge";
 
 let bookCategories = ["fantasy", "horror", "history", "romance", "scifi"];
 let books = {
@@ -28,8 +29,14 @@ class Home extends React.Component {
     this.state = {
       books: books.fantasy.slice(0, 12),
       categorySelected: this.props.jumboTitle,
+      selectedBook: null,
     };
   }
+
+  selectNewBook = (book) => {
+    this.setState({ selectedBook: book });
+    // console.log({ selectedBook: book });
+  };
 
   handleDropdownChange = (category) => {
     this.setState({
@@ -97,7 +104,11 @@ class Home extends React.Component {
                 return (
                   <Col xs={6} key={book.asin}>
                     <Card style={{ width: "18rem" }}>
-                      <Card.Img variant="top" src={book.img} />
+                      <Card.Img
+                        variant="top"
+                        src={book.img}
+                        onClick={() => this.selectNewBook(book)}
+                      />
                       <Card.Body>
                         <Card.Title>{book.title}</Card.Title>
                         <Card.Text>€{book.price}</Card.Text>
@@ -110,6 +121,9 @@ class Home extends React.Component {
             ) : (
               <div> nothing here </div>
             )}
+          </Row>
+          <Row className="mb-5">
+            <BookComments selectedbook={this.state.selectedBook} />
           </Row>
         </Container>
       </div>

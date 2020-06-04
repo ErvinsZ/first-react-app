@@ -1,19 +1,12 @@
-import React from 'react';
-import './App.css';
-import'bootstrap/dist/css/bootstrap.min.css';
-import Navbar from './components/Navbar';
-import Jumbotron from './components/Jumbotron';
-import Footer from './components/Footer';
-import LatestRelease from './components/LatestRelease';
-
+import React from "react";
+import NavBar from "./components/NavBar";
+import Home from "./components/Home";
 
 function App() {
   return (
     <div className="App">
-      <Navbar title="Strivesturant" />
-      <Jumbotron/>
-      <LatestRelease/>
-      <Footer/>
+      <NavBar title="StriveBooks" />
+      <Home jumboTitle="Welcome to strivebooks" />
     </div>
   );
 }

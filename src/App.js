@@ -1,5 +1,5 @@
 import React from "react";
-import NavBar from "./components/Navbar";
+import NavBar from "./components/NavBar";
 import Home from "./components/Home";
 import WarningSign from "./components/WarningSign";
 import MyBadge from "./components/MyBadge";

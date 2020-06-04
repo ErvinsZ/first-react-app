@@ -10,6 +10,7 @@ import {
   DropdownButton,
   InputGroup,
   FormControl,
+  Badge
 } from "react-bootstrap";
 import BookComments from "./MyBadge";
 
@@ -32,12 +33,23 @@ class Home extends React.Component {
       selectedBook: null,
     };
   }
+  
+ 
+  showBadge =()=> {
+    let badge = document.querySelectorAll(".badge")
+    for(let i=0;i<badge.length; i++){
+      badge[i].style.display="block"
+    }
+  
+  }
 
   selectNewBook = (book) => {
     this.setState({ selectedBook: book });
-    // console.log({ selectedBook: book });
+     console.log({ selectedBook: book });
   };
 
+
+  
   handleDropdownChange = (category) => {
     this.setState({
       books: books[category].slice(0, 12),
@@ -106,13 +118,17 @@ class Home extends React.Component {
                     <Card style={{ width: "18rem" }}>
                       <Card.Img
                         variant="top"
-                        src={book.img}
+                        src={book.img} 
+                        className = "img"
                         onClick={() => this.selectNewBook(book)}
                       />
                       <Card.Body>
                         <Card.Title>{book.title}</Card.Title>
                         <Card.Text>€{book.price}</Card.Text>
-                        <Button variant="primary">Go somewhere</Button>
+                        <div className = "d-flex">
+                        <Button variant="primary" onClick={() => this.showBadge()}>Add to Cart</Button>
+                        <Badge className = "badge"pill variant="primary ml-5 d-none"> Added</Badge>{' '}
+                        </div>
                       </Card.Body>
                     </Card>
                   </Col>
@@ -130,5 +146,11 @@ class Home extends React.Component {
     );
   }
 }
+
+
+
+
+
+
 
 export default Home;

@@ -1,4 +1,5 @@
 import React from 'react'
+import {ListGroup} from "react-bootstrap";
 
 class Comments extends React.Component {
     state = {
@@ -12,7 +13,7 @@ class Comments extends React.Component {
     componentDidMount = async () => {
         console.log("I'm in the componentDidMount method")
         try {
-          let response = await fetch("https://striveschool.herokuapp.com/api/comments/",{
+          let response = await fetch("https://striveschool.herokuapp.com/api/comments/{0316438960}",{
             headers: {
                 "Authorization": "Basic " + btoa("user12:5s*f!thGyuC8xm&h")
             }
